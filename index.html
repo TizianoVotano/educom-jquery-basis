@@ -1,16 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>   
+<html>
+  <head>    
+    <link rel="stylesheet" href="css/vegas-style.css" />   
+    <link rel="stylesheet" href="vegas/vegas.css" />   
+    <link rel="stylesheet" href="vegas/vegas.min.css"/>
+    
     <script src="js/jquery.js"></script>
+    <script src="vegas/vegas.js"></script>
+    <script src="js/images.js"></script>
+    
     <script>
       $(document).ready( function() {
+        
+        const mySlides = images; // var imported from vegas/images.js through <script>
+        console.log(mySlides);
+        
+        $("#background-image").vegas({
+            overlay: 'vegas/overlays/02.png',
+            slides: mySlides,
+            // walk: function (index, slideSettings) {
+            //       $(".text-block h1").html(mySlides[index].title)
+            //       $(".text-block h4").html(mySlides[index].subtitle)
+            // }
+        })
 
-         /// code lives here
-        $("#content").html("<h1>JQuery says Hi!</h1>")
-      });    
+      })  
     </script>
   </head>
   <body>
-     <div id="content"></div>
+    <div id="background-image">
+        
+            <div class="text-block">
+                <h1></h1>
+                <h4></h4>
+            </div>
+        
+    </div>     
   </body>
 </html>
