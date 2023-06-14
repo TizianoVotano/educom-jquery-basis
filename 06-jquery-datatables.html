@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dynamic Table</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <script src="./js/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            const dTable = $("#theBeatles").DataTable({
+                ajax: "https://api.dev-master.ninja/js/beatles",
+                columns: [
+                    { data: "id" },
+                    { data: "firstname" },
+                    { data: "lastname" },
+                    { data: "dateOfBirth" },
+                    { data: "email" }
+                ]
+            })
+
+            // Reload the table every 10 seconds
+            setInterval(function () {
+                console.log(dTable);
+                dTable.ajax.reload()
+            }, 10000);
+
+
+
+
+
+            $("#form").submit(function (e) {
+                e.preventDefault();
+
+                const data = {
+                    firstname: $("#fname").val(),
+                    lastname: $("#lname").val(),
+                    email: $("#email").val()
+                }
+                $.ajax({
+                    url: "https://api.dev-master.ninja/js/person/save",
+                    method: "POST",
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+            });
+
+        })
+    </script>
+</head>
+
+<body>
+    <table id="theBeatles" class="display nowrap dataTable dtr-inline collapsed">
+        <thead>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <form id="form">
+        <input type="text" name="firstname" id="fname" placeholder="Firstname" /> <br />
+        <input type="text" name="lastname" id="lname" placeholder="Lastname" /> <br />
+        <input type="text" name="email" id="email" placeholder="Email" /> <br />
+        <input type="submit" value="Submit" />
+    </form>
+
+</body>
+
+</html>
