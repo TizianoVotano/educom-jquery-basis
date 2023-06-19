@@ -13,15 +13,8 @@
                 /// Clear all the red stars 
                 $(".star").removeClass('red')
 
-                /// Paint it Red!
-                $(".star").each((index, elem) => {
-                    const itemValue = $(elem).attr('data-value');
-                    if (itemValue <= value) {
-                        $(elem).addClass('red');
-                    }
-                })
-                ///
-                
+
+                // Dit gebeurd te vroeg: zou moeten gebeuren eens je de output van de API krijgt                 
                 const test = $.ajax({
                     url: "https://api.dev-master.ninja/js/rating",
                     method: "POST",
@@ -30,6 +23,13 @@
                         // Your code goes here!
                         console.log(`Rating: ${result.rating}`);
                         console.log(`Average: ${result.result}`);
+
+                        $(".star").each((index, elem) => {
+                            const ratingStar = $(elem).attr('data-value');
+                            if (ratingStar <= result.rating) {
+                                $(elem).addClass('red');
+                            }
+                        })
                     }
                 })
                 console.log(test);
@@ -40,7 +40,6 @@
 </head>
 
 <body>
-
     <span class="star" data-value="1">*</span>
     <span class="star" data-value="2">*</span>
     <span class="star" data-value="3">*</span>
